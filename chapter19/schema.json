@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "date": { "type": "string" },
+    "pr_count": { "type": "integer" },
+    "by_author": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "author": { "type": "string" },
+          "count": { "type": "integer" }
+        },
+        "required": ["author", "count"]
+      }
+    }
+  },
+  "required": ["date", "pr_count", "by_author"]
+}

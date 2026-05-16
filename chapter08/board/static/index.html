@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>간단한 게시판</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">FastAPI + SQLite</p>
+        <h1>간단한 게시판</h1>
+        <p class="hero-copy">글쓰기, 목록, 상세 보기, 삭제를 한 화면에서 처리합니다.</p>
+      </div>
+      <button class="refresh-button" type="button" id="refreshButton">새로고침</button>
+    </header>
+
+    <section class="layout" aria-label="게시판">
+      <article class="card form-card">
+        <div class="section-title">
+          <h2>글쓰기</h2>
+          <span>새 게시글 작성</span>
+        </div>
+
+        <form id="postForm">
+          <label>
+            제목
+            <input id="titleInput" name="title" type="text" maxlength="120" placeholder="제목을 입력하세요" required />
+          </label>
+          <label>
+            작성자
+            <input id="authorInput" name="author" type="text" maxlength="40" placeholder="작성자 이름" required />
+          </label>
+          <label>
+            내용
+            <textarea id="contentInput" name="content" rows="8" maxlength="5000" placeholder="내용을 입력하세요" required></textarea>
+          </label>
+          <button class="primary-button" type="submit">등록하기</button>
+        </form>
+      </article>
+
+      <section class="content-stack">
+        <article class="card">
+          <div class="section-title">
+            <h2>목록</h2>
+            <span id="postCount">0건</span>
+          </div>
+          <div class="post-list" id="postList" aria-live="polite"></div>
+        </article>
+
+        <article class="card detail-card">
+          <div class="section-title">
+            <h2>상세 보기</h2>
+            <span id="detailState">선택 대기</span>
+          </div>
+          <div class="detail-empty" id="detailEmpty">목록에서 게시글을 선택하세요.</div>
+          <div class="detail" id="detail" hidden>
+            <div class="detail-head">
+              <div>
+                <h3 id="detailTitle"></h3>
+                <p id="detailMeta"></p>
+              </div>
+              <button class="delete-button" type="button" id="deleteButton">삭제</button>
+            </div>
+            <p class="detail-content" id="detailContent"></p>
+          </div>
+        </article>
+      </section>
+    </section>
+
+    <p class="message" id="message" role="status"></p>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
