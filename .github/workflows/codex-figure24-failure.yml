@@ -1,0 +1,25 @@
+name: Codex Figure 24 Failing Build
+
+on:
+  push:
+    branches:
+      - "codex/figure24-actions-failure"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Demo build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run demo build
+        run: |
+          echo "Starting Figure 24 demo build"
+          echo "This failure is intentional so Codex can analyze it in a PR comment."
+          exit 1
