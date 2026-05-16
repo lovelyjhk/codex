@@ -12,15 +12,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #eef4f7;
-      --panel: rgba(255, 255, 255, 0.8);
-      --solid: #ffffff;
-      --text: #17212b;
-      --muted: #647282;
-      --line: rgba(31, 42, 55, 0.12);
-      --accent: #147e7f;
-      --accent-2: #d97706;
-      --shadow: 0 24px 70px rgba(22, 34, 45, 0.14);
+      --bg: #070b10;
+      --panel: rgba(12, 18, 27, 0.88);
+      --solid: #0e151f;
+      --soft: #111b27;
+      --text: #eaf2f8;
+      --muted: #91a2b4;
+      --line: rgba(120, 255, 214, 0.18);
+      --accent: #43f2b7;
+      --accent-2: #8fb7ff;
+      --warning: #f5c46b;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
     }
 
     * {
@@ -37,9 +39,10 @@
       font-family: "Noto Sans KR", system-ui, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 8% 8%, #d7f1ee, transparent 32rem),
-        radial-gradient(circle at 92% 6%, #fff0d7, transparent 30rem),
-        linear-gradient(135deg, #eef4f7, #f8fbfc);
+        linear-gradient(rgba(67, 242, 183, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(67, 242, 183, 0.045) 1px, transparent 1px),
+        linear-gradient(135deg, #070b10 0%, #101827 56%, #07110f 100%);
+      background-size: 34px 34px, 34px 34px, auto;
     }
 
     a {
@@ -73,10 +76,11 @@
       width: 42px;
       height: 42px;
       place-items: center;
-      border-radius: 14px;
-      color: #ffffff;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 12px 28px rgba(20, 126, 127, 0.28);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: #08120f;
+      background: var(--accent);
+      box-shadow: 0 0 24px rgba(67, 242, 183, 0.28);
     }
 
     .nav {
@@ -91,16 +95,22 @@
       min-height: 42px;
       padding: 0 14px;
       border: 1px solid var(--line);
-      border-radius: 999px;
+      border-radius: 8px;
       background: var(--panel);
       font-weight: 800;
       backdrop-filter: blur(14px);
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .nav a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     .hero {
       padding: clamp(30px, 5vw, 58px);
       border: 1px solid var(--line);
-      border-radius: 28px;
+      border-radius: 8px;
       background: var(--panel);
       box-shadow: var(--shadow);
       backdrop-filter: blur(18px);
@@ -114,14 +124,16 @@
       color: var(--accent);
       font-size: 0.9rem;
       font-weight: 800;
+      letter-spacing: 0;
     }
 
     .eyebrow::before {
       content: "";
       width: 8px;
       height: 8px;
-      border-radius: 50%;
+      border-radius: 2px;
       background: var(--accent);
+      box-shadow: 0 0 14px rgba(67, 242, 183, 0.8);
     }
 
     h1,
@@ -136,6 +148,7 @@
       font-size: clamp(2.35rem, 7vw, 4.8rem);
       line-height: 1.08;
       letter-spacing: 0;
+      text-shadow: 0 0 22px rgba(67, 242, 183, 0.16);
     }
 
     .hero-copy {
@@ -156,9 +169,9 @@
     .guide-card,
     .board-panel {
       border: 1px solid var(--line);
-      border-radius: 22px;
+      border-radius: 8px;
       background: var(--solid);
-      box-shadow: 0 14px 38px rgba(22, 34, 45, 0.08);
+      box-shadow: 0 14px 38px rgba(0, 0, 0, 0.28);
     }
 
     .guide-card {
@@ -172,8 +185,8 @@
       width: 34px;
       height: 34px;
       margin-bottom: 14px;
-      border-radius: 12px;
-      color: #ffffff;
+      border-radius: 8px;
+      color: #08120f;
       background: var(--accent);
       font-weight: 800;
     }
@@ -200,7 +213,7 @@
       gap: 18px;
       padding: 24px;
       border-bottom: 1px solid var(--line);
-      background: #f7fafb;
+      background: var(--soft);
     }
 
     .board-head h2 {
@@ -219,8 +232,8 @@
       min-height: 36px;
       padding: 0 12px;
       border-radius: 999px;
-      color: var(--accent);
-      background: #e9f6f4;
+      color: #08120f;
+      background: var(--accent);
       font-weight: 800;
       white-space: nowrap;
     }
@@ -233,10 +246,10 @@
       margin-top: 18px;
       padding: 16px;
       border: 1px dashed var(--line);
-      border-radius: 16px;
+      border-radius: 8px;
       color: var(--muted);
       line-height: 1.7;
-      background: #fbfdfe;
+      background: rgba(67, 242, 183, 0.06);
     }
 
     .fallback a {
@@ -305,7 +318,7 @@
     </nav>
 
     <header class="hero">
-      <div class="eyebrow">Community Board</div>
+      <div class="eyebrow">Dark Community Board</div>
       <h1>공용 게시판</h1>
       <p class="hero-copy">
         질문, 실습 후기, 자료 요청을 함께 남기는 공간입니다.
@@ -351,7 +364,7 @@
           data-reactions-enabled="1"
           data-emit-metadata="0"
           data-input-position="top"
-          data-theme="preferred_color_scheme"
+          data-theme="dark_dimmed"
           data-lang="ko"
           crossorigin="anonymous"
           async>
