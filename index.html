@@ -634,7 +634,7 @@
       <div class="nav-actions">
         <div class="nav-links" aria-label="페이지 메뉴">
           <a class="nav-link" href="#about">소개</a>
-          <a class="nav-link" href="#board">게시판</a>
+          <a class="nav-link" href="board/">게시판</a>
         </div>
         <button class="theme-toggle" type="button" aria-pressed="false">
           <span class="theme-icon">●</span>
@@ -711,36 +711,6 @@
       </article>
     </section>
 
-    <section class="board-section" id="board" aria-labelledby="board-title">
-      <div class="board-head">
-        <div>
-          <h2 id="board-title">게시판</h2>
-          <p>이 브라우저에 저장된 글을 카드형 grid로 보여줍니다.</p>
-        </div>
-        <span class="board-count" id="boardCount">0개</span>
-      </div>
-
-      <div class="board-layout">
-        <form class="board-form" id="boardForm">
-          <label>
-            이름
-            <input id="boardName" type="text" maxlength="24" placeholder="이름을 입력하세요" required />
-          </label>
-          <label>
-            제목
-            <input id="boardTitleInput" type="text" maxlength="60" placeholder="제목을 입력하세요" required />
-          </label>
-          <label>
-            내용
-            <textarea id="boardContent" maxlength="600" placeholder="내용을 입력하세요" required></textarea>
-          </label>
-          <button class="board-submit" type="submit">글 등록</button>
-        </form>
-
-        <div class="board-grid" id="boardGrid" aria-live="polite"></div>
-      </div>
-    </section>
-
     <footer>
       © <span id="year"></span> 잇잇쌤. All rights reserved.
     </footer>
@@ -768,98 +738,6 @@
       setTheme(!body.classList.contains("dark"));
     });
 
-    const boardKey = "itit-board-posts";
-    const boardForm = document.querySelector("#boardForm");
-    const boardGrid = document.querySelector("#boardGrid");
-    const boardCount = document.querySelector("#boardCount");
-    const boardName = document.querySelector("#boardName");
-    const boardTitleInput = document.querySelector("#boardTitleInput");
-    const boardContent = document.querySelector("#boardContent");
-
-    function loadPosts() {
-      try {
-        return JSON.parse(localStorage.getItem(boardKey)) || [];
-      } catch {
-        return [];
-      }
-    }
-
-    function savePosts(posts) {
-      localStorage.setItem(boardKey, JSON.stringify(posts));
-    }
-
-    function makePostId() {
-      if (window.crypto && crypto.randomUUID) {
-        return crypto.randomUUID();
-      }
-      return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-    }
-
-    function escapeHtml(value) {
-      return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    function renderPosts() {
-      const posts = loadPosts();
-      boardCount.textContent = `${posts.length}개`;
-
-      if (posts.length === 0) {
-        boardGrid.innerHTML = '<div class="board-empty">첫 글을 남겨 주세요.</div>';
-        return;
-      }
-
-      boardGrid.innerHTML = posts
-        .map((post) => `
-          <article class="post-card">
-            <h3>${escapeHtml(post.title)}</h3>
-            <p>${escapeHtml(post.content)}</p>
-            <div class="post-meta">
-              <span>${escapeHtml(post.name)} · ${escapeHtml(post.date)}</span>
-              <button class="post-delete" type="button" data-id="${post.id}">삭제</button>
-            </div>
-          </article>
-        `)
-        .join("");
-    }
-
-    boardForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const nextPost = {
-        id: makePostId(),
-        name: boardName.value.trim(),
-        title: boardTitleInput.value.trim(),
-        content: boardContent.value.trim(),
-        date: new Date().toLocaleDateString("ko-KR"),
-      };
-
-      if (!nextPost.name || !nextPost.title || !nextPost.content) {
-        return;
-      }
-
-      const posts = [nextPost, ...loadPosts()];
-      savePosts(posts);
-      boardForm.reset();
-      renderPosts();
-    });
-
-    boardGrid.addEventListener("click", (event) => {
-      const button = event.target.closest(".post-delete");
-      if (!button) {
-        return;
-      }
-
-      const posts = loadPosts().filter((post) => post.id !== button.dataset.id);
-      savePosts(posts);
-      renderPosts();
-    });
-
-    renderPosts();
     document.querySelector("#year").textContent = new Date().getFullYear();
   </script>
 </body>
